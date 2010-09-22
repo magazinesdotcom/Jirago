@@ -1,0 +1,26 @@
+#!/usr/bin/env perl
+
+use FindBin;
+use lib "$FindBin::Bin/lib";
+
+use Config::JFDI;
+use Jirago::Source::JIRA;
+
+#use Data::Dumper;
+
+my $config  = Config::JFDI->new( name => 'Jirago', path => $FindBin::Bin )->get;
+my $source  = Jirago::Source::JIRA->new( %{$config->{'Jirago::Source::JIRA'}} );
+my $release = $source->next_release;
+
+print " === NEXT RELEASE: " . $release->name . " ===\n";
+print "     Release date: " . $release->release_date . "\n";
+print "      Freeze date: " . $release->freeze_date . "\n";
+print "     Open Tickets: " . $release->open_ticket_count . "\n";
+print "       QA Tickets: " . $release->pending_ticket_count . "\n";
+print "   Closed Tickets: " . $release->closed_ticket_count . "\n";
+
+print "\n\n **** IN CODE FREEZE ****\n\n" if $source->next_release->in_code_freeze;
+
+#print " Pending Tickets:\n\t" . join("\n\t", map { $_->id . ": " . $_->name } $source->get_pending_tickets) . "\n";
+#print join("\n", $source->get_categories), "\n";
+#print join("\n", $source->open_ticket_count), "\n";

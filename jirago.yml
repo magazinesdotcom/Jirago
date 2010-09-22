@@ -1,0 +1,8 @@
+---
+Jirago::Source::JIRA:
+    url: http://jira.yourcompany.com
+    username: username
+    password: password
+    project: PRJ 
+    issue_filter: Filter to Show All Issues
+
