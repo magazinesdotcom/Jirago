@@ -27,8 +27,7 @@ sub in_code_freeze {
     my ( $self ) = @_;
 
     my $now = DateTimeX::Easy->new('today');
-
-    return ( $self->freeze_date >= $now );
+    return ( $self->freeze_date <= $now );
 }
 
 has 'tickets' => (
